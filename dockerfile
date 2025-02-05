@@ -4,8 +4,6 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm config set timeout 600000
-
 RUN npm install
 
 COPY . .
