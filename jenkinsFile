@@ -25,10 +25,14 @@ pipeline {
             }
         }
 
-        // stage('Deploy') {
-        //     steps {
-        //         sh 'pm2 restart server.js' // Change this based on your deployment setup
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                sh '''
+                pm2 delete nest-app || true
+                pm2 start dist/main.js --name nest-app
+                '''
+          }
+}
+
     }
 }
