@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+
+    environment {
+        NODEJS_HOME = tool 'node-22.13.1'
+        PATH = "${NODEJS_HOME}/bin:${env.PATH}"
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/abhishek-cubexo1223/AWS_Biller_Backend.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'npm test'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+
+        // stage('Deploy') {
+        //     steps {
+        //         sh 'pm2 restart server.js' // Change this based on your deployment setup
+        //     }
+        // }
+    }
+}
