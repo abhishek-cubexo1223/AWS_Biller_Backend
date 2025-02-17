@@ -32,7 +32,15 @@ pipeline {
                 pm2 start dist/main.js --name nest-app
                 '''
           }
-}
+            }
+        post {
+        success {
+            echo '✅ Deployment Successful!'
+        }
+        failure {
+            echo '❌ Deployment Failed!'
+        }
+    }
 
     }
 }
