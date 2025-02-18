@@ -3,7 +3,7 @@ pipeline {
 
     environment {         
         NODEJS_HOME = tool 'node-22.13.1'         
-        PATH = "${NODEJS_HOME}/bin:${env.PATH}"     
+        PATH = "${NODEJS_HOME}/bin:/home/my/.nvm/versions/node/v22.13.1/bin:${env.PATH}"  
     }      
 
     stages {         
@@ -28,8 +28,8 @@ pipeline {
         stage('Deploy') {             
             steps {                 
                 sh '''                 
-                pm2 delete nest-app || true                 
-                pm2 start dist/main.js --name nest-app                 
+                /home/my/.nvm/versions/node/v22.13.1/bin/pm2 delete nest-app || true                 
+                /home/my/.nvm/versions/node/v22.13.1/bin/pm2 start dist/main.js --name nest-app                 
                 '''           
             }         
         }     
