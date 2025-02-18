@@ -1,46 +1,46 @@
-pipeline {
-    agent any
+pipeline {     
+    agent any      
 
-    environment {
-        NODEJS_HOME = tool 'node-22.13.1'
-        PATH = "${NODEJS_HOME}/bin:${env.PATH}"
-    }
+    environment {         
+        NODEJS_HOME = tool 'node-22.13.1'         
+        PATH = "${NODEJS_HOME}/bin:${env.PATH}"     
+    }      
 
-    stages {
-        stage('Checkout Code') {
-            steps {
-                git branch: 'main', url: 'https://github.com/abhishek-cubexo1223/AWS_Biller_Backend.git'
-            }
-        }
+    stages {         
+        stage('Checkout Code') {             
+            steps {                 
+                git branch: 'main', url: 'https://github.com/abhishek-cubexo1223/AWS_Biller_Backend.git'             
+            }         
+        }          
 
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
+        stage('Install Dependencies') {             
+            steps {                 
+                sh 'npm install'             
+            }         
+        }          
 
-        stage('Build') {
-            steps {
-                sh 'npm run build'
-            }
-        }
+        stage('Build') {             
+            steps {                 
+                sh 'npm run build'             
+            }         
+        }          
 
-        stage('Deploy') {
-            steps {
-                sh '''
-                pm2 delete nest-app || true
-                pm2 start dist/main.js --name nest-app
-                '''
-          }
-            }
-        post {
-        success {
-            echo '✅ Deployment Successful!'
-        }
-        failure {
-            echo '❌ Deployment Failed!'
-        }
-    }
+        stage('Deploy') {             
+            steps {                 
+                sh '''                 
+                pm2 delete nest-app || true                 
+                pm2 start dist/main.js --name nest-app                 
+                '''           
+            }         
+        }     
+    }  
 
-    }
+    post {         
+        success {             
+            echo '✅ Deployment Successful!'         
+        }         
+        failure {             
+            echo '❌ Deployment Failed!'         
+        }     
+    } 
 }
