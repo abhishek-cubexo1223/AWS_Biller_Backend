@@ -37,10 +37,18 @@ pipeline {
 
     post {         
         success {             
-            echo '✅ Deployment Successful!'         
+            echo '✅ Deployment Successful!'  
+            emailext subject: "✅ SUCCESS: Jenkins Build ${JOB_NAME} #${BUILD_NUMBER}", 
+                     body: "The build was successful.\n\nJob: ${JOB_NAME}\nBuild Number: ${BUILD_NUMBER}\nURL: ${BUILD_URL}", 
+                     recipientProviders: [[$class: 'DevelopersRecipientProvider']], 
+                     to: "abhishek.yadav@cubexo.io"         
         }         
         failure {             
-            echo '❌ Deployment Failed!'         
+            echo '❌ Deployment Failed!'  
+            emailext subject: "❌ FAILURE: Jenkins Build ${JOB_NAME} #${BUILD_NUMBER}", 
+                     body: "The build failed.\n\nJob: ${JOB_NAME}\nBuild Number: ${BUILD_NUMBER}\nURL: ${BUILD_URL}", 
+                     recipientProviders: [[$class: 'DevelopersRecipientProvider']], 
+                     to: "abhishek.yadav@cubexo.io"         
         }     
-    } 
+    }  
 }
